@@ -26,14 +26,14 @@
   keymap {
     compatible = "zmk,keymap";
 
-default_layer {
+  default_layer {
       display-name = "Base";
       bindings = 
-        &kp NO_PLUS &kp N1      &kp N2   &kp N3   &kp N4     &kp N5 &tog 1                                                                &mo 3 &kp N6 &kp N7 &kp N8    &kp N9   &kp N0    &kp MINUS
-        &kp TAB     &kp Q       &kp W    &kp E    &kp R      &kp T  &none                                                                 &none &kp Y  &kp U  &kp I     &kp O    &kp P     &kp NO_APOS
-        &kp ESC     &kp A       &kp S    &kp D    &kp F      &kp G  &none           &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL               &none &kp H  &kp J  &kp K     &kp L    &kp NO_AE &kp NO_OSTR
+        &kp NB_PLUS &kp N1      &kp N2   &kp N3   &kp N4     &kp N5 &tog 1                                                                &mo 3 &kp N6 &kp N7 &kp N8    &kp N9   &kp N0    &kp MINUS
+        &kp TAB     &kp Q       &kp W    &kp E    &kp R      &kp T  &none                                                                 &none &kp Y  &kp U  &kp I     &kp O    &kp P     &kp NB_APOS
+        &kp ESC     &kp A       &kp S    &kp D    &kp F      &kp G  &none           &kp LCTRL &kp LALT &kp LGUI  &kp RCTRL               &none &kp H  &kp J  &kp K     &kp L    &kp NB_AE &kp NB_OSTR
         &kp LSHFT   &kp Z       &kp X    &kp C    &kp V      &kp B                            &kp HOME &kp PG_UP                                &kp N  &kp M  &kp COMMA &kp DOT  &kp FSLH  &kp RSHFT
-        &mo 2       &kp NO_SECT &kp CAPS &kp LEFT &kp RIGHT               &kp SPACE &kp ENTER &kp END  &kp PG_DN &kp DEL   &kp BSPC              &kp UP &kp DOWN  &kp NO_AA &kp NO_DIAE &mo 2
+        &mo 2       &kp NB_SECT &kp CAPS &kp LEFT &kp RIGHT               &kp SPACE &kp ENTER &kp END  &kp PG_DN &kp DEL   &kp BSPC              &kp UP &kp DOWN  &kp NB_AA &kp NB_DIAE &mo 2
       >;
     };
     keypad {
