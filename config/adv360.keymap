@@ -1,7 +1,30 @@
+/*
+ * Kinesis Advantage 360 Pro - Linux / Windows-style layout (Norwegian)
+ *
+ * Layers
+ *   0  Base    normal typing
+ *   1  Kp      number pad          (toggle: Fn + right-thumb AltGr key)
+ *   2  Fn      F-keys, navigation, media, Bluetooth, firmware
+ *               (hold: right-thumb inner top key)
+ *
+ * Modifiers follow the Windows convention:
+ *   Ctrl   bottom-left corner (pinky, where Windows puts it)  AND  left big thumb key
+ *   Alt    left thumb, upper                                  (Alt+Tab, Alt+F4)
+ *   AltGr  right thumb AND left thumb (far)
+ *            AltGr + 2 3 4 = @ GBP $     AltGr + 7 8 9 0 = { [ ] }
+ *            AltGr + E = EUR             AltGr + the diaeresis key = ~
+ *   Super  right thumb, inner    (overview, Super+L, tiling)
+ *
+ * Character set follows the Norwegian ISO layout, so the OS keyboard layout
+ * must be set to Norwegian ("no"). See config/keys_nb.h for the NB_* defines.
+ */
+
 #include <dt-bindings/zmk/stp.h>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/backlight.h>
+#include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/rgb.h>
 #include "keys_nb.h"
 
@@ -9,6 +32,22 @@
     behaviors {
         #include "macros.dtsi"
       #include "version.dtsi"
+
+        /* The Norwegian layout makes ` and ~ dead keys: you have to press
+         * space afterwards to get the bare character. These emit them directly. */
+        nb_grave: nb_grave {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp NB_GRAVE>, <&kp SPACE>;
+            display-name = "Grave";
+        };
+
+        nb_tilde: nb_tilde {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp NB_TILDE>, <&kp SPACE>;
+            display-name = "Tilde";
+        };
 
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
@@ -24,36 +63,64 @@
     keymap {
         compatible = "zmk,keymap";
 
+        /*
+         *  |/§  1  2  3  4  5  [6]        [5]  6  7  8  9  0  +/?
+         *  Tab  Q  W  E  R  T  [Y]        [T]  Y  U  I  O  P  Å
+         *  Esc  A  S  D  F  G  [H]        [G]  H  J  K  L  Ø  Æ
+         *  Shft Z  X  C  V  B                  N  M  ,  .  -  Shft
+         *  Ctrl ↓  ↑  ←  →                     Menu \  '  ¨  <
+         *
+         *  left thumb :  Space | Ctrl(big)  Alt(top)  |  AltGr  Home  End
+         *  right thumb:  Fn  AltGr | Super  Del | Enter | Bksp
+         */
         default_layer {
             display-name = "Base";
             bindings = <
-&kp LA(NUHS)  &kp N1          &kp N2        &kp N3          &kp N4           &kp N5  &kp N6                                                              &kp NUMBER_5  &kp N6  &kp N7  &kp N8     &kp N9       &kp N0         &kp MINUS
-&kp TAB       &kp Q           &kp W         &kp E           &kp R            &kp T   &kp Y                                                               &kp T         &kp Y   &kp U   &kp I      &kp O        &kp P          &kp NB_A_RING
-&kp ESC       &kp A           &kp S         &kp D           &kp F            &kp G   &kp H      &kp PAGE_DOWN  &kp PAGE_UP      &mo 2         &tog 1     &kp G         &kp H   &kp J   &kp K      &kp L        &kp NB_AE      &kp NB_O_SLASH
-&kp LSHFT     &kp Z           &kp X         &kp C           &kp V            &kp B                             &kp HOME         &kp LEFT_GUI                           &kp N   &kp M   &kp COMMA  &kp DOT      &kp FSLH       &kp NB_BSLH
-&kp LEFT_ALT  &kp DOWN_ARROW  &kp UP_ARROW  &kp LEFT_ARROW  &kp RIGHT_ARROW          &kp SPACE  &kp LGUI       &kp END          &kp DELETE    &kp ENTER  &kp BSPC              &none   &none      &kp NB_APOS  &kp NB_UMLAUT  &kp NB_LESS_THAN
+                &kp NB_PIPE       &kp N1            &kp N2            &kp N3            &kp N4            &kp N5               &kp N6               &kp N5               &kp N6            &kp N7            &kp N8            &kp N9            &kp N0            &kp NB_PLUS
+                &kp TAB           &kp Q             &kp W             &kp E             &kp R             &kp T                &kp Y                &kp T                &kp Y             &kp U             &kp I             &kp O             &kp P             &kp NB_A_RING
+                &kp ESC           &kp A             &kp S             &kp D             &kp F             &kp G                &kp H                &kp LALT          &kp RALT             &mo 2             &kp RALT             &kp G                &kp H             &kp J             &kp K             &kp L             &kp NB_O_SLASH    &kp NB_AE
+                &kp LSHFT         &kp Z             &kp X             &kp C             &kp V             &kp B                &kp HOME             &kp LGUI             &kp N             &kp M             &kp NB_COMMA      &kp NB_DOT        &kp NB_MINUS      &kp RSHFT
+                &kp LCTRL         &kp DOWN          &kp UP            &kp LEFT          &kp RIGHT            &kp SPACE         &kp LCTRL         &kp END              &kp DEL           &kp RET           &kp BSPC             &kp K_APP         &kp NB_BSLH       &kp NB_APOS       &kp NB_UMLAUT     &kp NB_LESS_THAN
             >;
         };
 
+        /* Number pad over the right hand. Everything else falls through to
+         * the base layer, so letters and modifiers keep working.
+         * Toggle off with the same right-thumb key that turned it on. */
         keypad {
             display-name = "Kp";
             bindings = <
-&none  &none  &none  &none  &none  &none  &trans                                             &none      &none  &none      &none      &none       &none  &none
-&none  &none  &none  &none  &none  &none  &none                                              &none      &none  &kp KP_N7  &kp KP_N8  &kp KP_N9   &none  &none
-&none  &none  &none  &none  &none  &none  &none   &none  &none      &mo 2         &tog 1     &none      &none  &kp KP_N4  &kp KP_N5  &kp KP_N6   &none  &none
-&none  &none  &none  &none  &none  &none                 &none      &kp LEFT_GUI                        &none  &kp KP_N1  &kp KP_N2  &kp KP_N3   &none  &none
-&none  &none  &none  &none  &none         &none   &none  &none      &kp LGUI      &kp ENTER  &kp KP_N0         &kp KP_N0  &kp DOT    &kp KP_DOT  &none  &none
+                &trans           &trans           &trans           &trans           &trans           &trans              &trans              &trans              &trans           &kp KP_NUM       &kp KP_DIVIDE    &kp KP_MULTIPLY  &kp KP_MINUS     &trans
+                &trans           &trans           &trans           &trans           &trans           &trans              &trans              &trans              &trans           &kp KP_N7        &kp KP_N8        &kp KP_N9        &kp KP_PLUS      &trans
+                &trans           &trans           &trans           &trans           &trans           &trans              &trans              &trans           &trans              &trans           &tog 1              &trans              &trans           &kp KP_N4        &kp KP_N5        &kp KP_N6        &trans           &trans
+                &trans           &trans           &trans           &trans           &trans           &trans              &trans              &trans              &trans           &kp KP_N1        &kp KP_N2        &kp KP_N3        &kp KP_ENTER     &trans
+                &trans           &trans           &trans           &trans           &trans              &trans           &trans           &trans              &trans           &trans           &trans              &kp KP_N0        &kp KP_DOT       &trans           &trans           &trans
             >;
         };
 
-        mod {
-            display-name = "Mod";
+        /* Hold the right-thumb inner top key.
+         *   number row      -> F1..F10, F11 on '+', F12 on '|'
+         *   Esc             -> Caps Lock
+         *   ↑ ↓ ← →         -> PgUp PgDn Home End
+         *   Y U I O P       -> PgUp Home ↑ End PgDn        (Å -> PrintScreen)
+         *   H J K L         -> Insert ← ↓ →                (Ø -> Menu, Æ -> Delete)
+         *   Z X C V B       -> prev, play/pause, next, brightness -/+
+         *   N M ,           -> mute, volume -, volume +
+         *   Q W E R T       -> Bluetooth profile 1..5      (A -> clear pairing)
+         *   S D F G         -> USB/BT output, RGB, backlight, reboot
+         *   inner columns   -> bootloader (flash mode)
+         *   Backspace       -> Delete
+         *   \ key           -> a real backtick   (not the dead key)
+         *   diaeresis key   -> a real tilde      (not the dead key)
+         */
+        fn {
+            display-name = "Fn";
             bindings = <
-&none  &none  &none  &none  &none  &none  &none                                             &trans           &none  &none  &none  &none  &none  &none
-&none  &none  &none  &none  &none  &none  &bootloader                                       &bootloader      &none  &none  &none  &none  &none  &none
-&none  &none  &none  &none  &none  &none  &none        &none  &none      &none  &none       &none            &none  &none  &none  &none  &none  &none
-&none  &none  &none  &none  &none  &none                      &none      &none                               &none  &none  &none  &none  &none  &none
-&none  &none  &none  &none  &none         &none        &none  &none      &none  &bl BL_TOG  &rgb_ug RGB_TOG         &none  &none  &none  &none  &none
+                &kp F12          &kp F1           &kp F2           &kp F3           &kp F4           &kp F5              &trans              &trans              &kp F6           &kp F7           &kp F8           &kp F9           &kp F10          &kp F11
+                &trans           &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4        &bootloader         &bootloader         &kp PG_UP        &kp HOME         &kp UP           &kp END          &kp PG_DN        &kp PSCRN
+                &kp CAPS         &bt BT_CLR       &out OUT_TOG     &rgb_ug RGB_TOG  &bl BL_TOG       &sys_reset          &trans              &trans           &trans              &trans           &tog 1              &trans              &kp INS          &kp LEFT         &kp DOWN         &kp RIGHT        &kp K_APP        &kp DEL
+                &trans           &kp C_PREV       &kp C_PP         &kp C_NEXT       &kp C_BRI_DN     &kp C_BRI_UP        &trans              &trans              &kp C_MUTE       &kp C_VOL_DN     &kp C_VOL_UP     &trans           &trans           &trans
+                &trans           &kp PG_DN        &kp PG_UP        &kp HOME         &kp END             &trans           &trans           &trans              &trans           &trans           &kp DEL             &trans           &nb_grave        &trans           &nb_tilde        &trans
             >;
         };
     };
