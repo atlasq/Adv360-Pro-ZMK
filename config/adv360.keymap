@@ -9,11 +9,11 @@
  *
  * Modifiers follow the Windows convention:
  *   Ctrl   bottom-left corner (pinky, where Windows puts it)  AND  left big thumb key
- *   Alt    left thumb, upper                                  (Alt+Tab, Alt+F4)
+ *   Alt    left thumb, upper  AND  bottom row                 (Alt+Tab, Alt+F4)
  *   AltGr  right thumb AND left thumb (far)
  *            AltGr + 2 3 4 = @ GBP $     AltGr + 7 8 9 0 = { [ ] }
  *            AltGr + E = EUR             AltGr + the diaeresis key = ~
- *   Super  right thumb, inner    (overview, Super+L, tiling)
+ *   Super  right thumb, inner  AND  bottom row  (overview, Super+L, tiling)
  *
  * Character set follows the Norwegian ISO layout, so the OS keyboard layout
  * must be set to Norwegian ("no"). See config/keys_nb.h for the NB_* defines.
@@ -79,8 +79,8 @@
                 &kp NB_PIPE       &kp N1            &kp N2            &kp N3            &kp N4            &kp N5               &kp N6               &kp N5               &kp N6            &kp N7            &kp N8            &kp N9            &kp N0            &kp NB_PLUS
                 &kp TAB           &kp Q             &kp W             &kp E             &kp R             &kp T                &kp Y                &kp T                &kp Y             &kp U             &kp I             &kp O             &kp P             &kp NB_A_RING
                 &kp ESC           &kp A             &kp S             &kp D             &kp F             &kp G                &kp H                &kp LALT          &kp RALT             &mo 2             &kp RALT             &kp G                &kp H             &kp J             &kp K             &kp L             &kp NB_O_SLASH    &kp NB_AE
-                &kp LSHFT         &kp Z             &kp X             &kp C             &kp V             &kp B                &kp HOME             &kp LGUI             &kp N             &kp M             &kp NB_COMMA      &kp NB_DOT        &kp NB_MINUS      &kp RSHFT
-                &kp LCTRL         &kp DOWN          &kp UP            &kp LEFT          &kp RIGHT            &kp SPACE         &kp LCTRL         &kp END              &kp DEL           &kp RET           &kp BSPC             &kp K_APP         &kp NB_BSLH       &kp NB_APOS       &kp NB_UMLAUT     &kp NB_LESS_THAN
+                &kp LSHFT         &kp Z             &kp X             &kp C             &kp V             &kp B                &kp HOME             &kp LGUI             &kp N             &kp M             &kp NB_COMMA      &kp NB_DOT        &kp NB_MINUS      &kp NB_BSLH
+                &kp LCTRL         &kp LGUI          &kp LALT          &kp LEFT          &kp RIGHT            &kp SPACE         &kp LCTRL         &kp END              &kp DEL           &kp RET           &kp BSPC             &kp UP            &kp DOWN          &kp NB_APOS       &kp NB_UMLAUT     &kp NB_LESS_THAN
             >;
         };
 
@@ -101,7 +101,8 @@
         /* Hold the right-thumb inner top key.
          *   number row      -> F1..F10, F11 on '+', F12 on '|'
          *   Esc             -> Caps Lock
-         *   ↑ ↓ ← →         -> PgUp PgDn Home End
+         *   ← → (left hand)  -> Home End
+ *   ↑ ↓ (right hand) -> PgUp PgDn
          *   Y U I O P       -> PgUp Home ↑ End PgDn        (Å -> PrintScreen)
          *   H J K L         -> Insert ← ↓ →                (Ø -> Menu, Æ -> Delete)
          *   Z X C V B       -> prev, play/pause, next, brightness -/+
@@ -119,8 +120,8 @@
                 &kp F12          &kp F1           &kp F2           &kp F3           &kp F4           &kp F5              &trans              &trans              &kp F6           &kp F7           &kp F8           &kp F9           &kp F10          &kp F11
                 &trans           &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4        &bootloader         &bootloader         &kp PG_UP        &kp HOME         &kp UP           &kp END          &kp PG_DN        &kp PSCRN
                 &kp CAPS         &bt BT_CLR       &out OUT_TOG     &rgb_ug RGB_TOG  &bl BL_TOG       &sys_reset          &trans              &trans           &trans              &trans           &tog 1              &trans              &kp INS          &kp LEFT         &kp DOWN         &kp RIGHT        &kp K_APP        &kp DEL
-                &trans           &kp C_PREV       &kp C_PP         &kp C_NEXT       &kp C_BRI_DN     &kp C_BRI_UP        &trans              &trans              &kp C_MUTE       &kp C_VOL_DN     &kp C_VOL_UP     &trans           &trans           &trans
-                &trans           &kp PG_DN        &kp PG_UP        &kp HOME         &kp END             &trans           &trans           &trans              &trans           &trans           &kp DEL             &trans           &nb_grave        &trans           &nb_tilde        &trans
+                &trans           &kp C_PREV       &kp C_PP         &kp C_NEXT       &kp C_BRI_DN     &kp C_BRI_UP        &trans              &trans              &kp C_MUTE       &kp C_VOL_DN     &kp C_VOL_UP     &trans           &trans           &nb_grave
+                &trans           &trans           &trans           &kp HOME         &kp END             &trans           &trans           &trans              &trans           &trans           &kp DEL             &kp PG_UP        &kp PG_DN        &trans           &nb_tilde        &trans
             >;
         };
     };
