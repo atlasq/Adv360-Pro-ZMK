@@ -5,7 +5,7 @@
  *   0  Base    normal typing
  *   1  Kp      number pad          (toggle: Fn + right-thumb AltGr key)
  *   2  Fn      F-keys, navigation, media, Bluetooth, firmware
- *               (hold: left thumb, inner column, middle key)
+ *               (hold: left thumb, inner column, TOP key)
  *
  * Modifiers follow the Windows convention:
  *   Ctrl   bottom-left corner (pinky, where Windows puts it)  AND  left big thumb key
@@ -70,16 +70,16 @@
          *  Shft Z  X  C  V  B                  N  M  ,  .  -  \
          *  Ctrl Sup Alt ←  →                    ↑  ↓  '  ¨  <
          *
-         *  left thumb   Space(big) | Alt above Ctrl(big) | inner col: AltGr, Fn, Super
-         *  right thumb  inner col: Home, End, Del | AltGr above Enter(big) | Bksp(big)
+         *  left thumb   Space(big) | Alt above Ctrl(big) | inner col: Fn, AltGr, Super
+         *  right thumb  inner col: Home, AltGr, Del | End above Enter(big) | Bksp(big)
          */
         default_layer {
             display-name = "Base";
             bindings = <
                 &kp NB_PIPE       &kp N1            &kp N2            &kp N3            &kp N4            &kp N5               &kp N6               &kp N5               &kp N6            &kp N7            &kp N8            &kp N9            &kp N0            &kp NB_PLUS
                 &kp TAB           &kp Q             &kp W             &kp E             &kp R             &kp T                &kp Y                &kp T                &kp Y             &kp U             &kp I             &kp O             &kp P             &kp NB_A_RING
-                &kp ESC           &kp A             &kp S             &kp D             &kp F             &kp G                &kp H                &kp LALT          &kp RALT             &kp HOME          &kp RALT             &kp G                &kp H             &kp J             &kp K             &kp L             &kp NB_O_SLASH    &kp NB_AE
-                &kp LSHFT         &kp Z             &kp X             &kp C             &kp V             &kp B                &mo 2                &kp END              &kp N             &kp M             &kp NB_COMMA      &kp NB_DOT        &kp NB_MINUS      &kp NB_BSLH
+                &kp ESC           &kp A             &kp S             &kp D             &kp F             &kp G                &kp H                &kp LALT          &mo 2                &kp HOME          &kp END              &kp G                &kp H             &kp J             &kp K             &kp L             &kp NB_O_SLASH    &kp NB_AE
+                &kp LSHFT         &kp Z             &kp X             &kp C             &kp V             &kp B                &kp RALT             &kp RALT             &kp N             &kp M             &kp NB_COMMA      &kp NB_DOT        &kp NB_MINUS      &kp NB_BSLH
                 &kp LCTRL         &kp LGUI          &kp LALT          &kp LEFT          &kp RIGHT            &kp SPACE         &kp LCTRL         &kp LGUI             &kp DEL           &kp RET           &kp BSPC             &kp UP            &kp DOWN          &kp NB_APOS       &kp NB_UMLAUT     &kp NB_LESS_THAN
             >;
         };
@@ -98,7 +98,7 @@
             >;
         };
 
-        /* Hold the left thumb's inner-column middle key.
+        /* Hold the left thumb's inner-column top key.
          *   number row      -> F1..F10, F11 on '+', F12 on '|'
          *   Esc             -> Caps Lock
          *   ← → (left hand)  -> Home End
