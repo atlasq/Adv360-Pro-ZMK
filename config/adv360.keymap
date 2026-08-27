@@ -5,7 +5,7 @@
  *   0  Base    normal typing
  *   1  Kp      number pad          (toggle: Fn + right-thumb AltGr key)
  *   2  Fn      F-keys, navigation, media, Bluetooth, firmware
- *               (hold: right-thumb inner top key)
+ *               (hold: left thumb, inner column, middle key)
  *
  * Modifiers follow the Windows convention:
  *   Ctrl   bottom-left corner (pinky, where Windows puts it)  AND  left big thumb key
@@ -13,7 +13,7 @@
  *   AltGr  right thumb AND left thumb (far)
  *            AltGr + 2 3 4 = @ GBP $     AltGr + 7 8 9 0 = { [ ] }
  *            AltGr + E = EUR             AltGr + the diaeresis key = ~
- *   Super  right thumb, inner  AND  bottom row  (overview, Super+L, tiling)
+ *   Super  left thumb, inner bottom  AND  bottom row  (overview, Super+L, tiling)
  *
  * Character set follows the Norwegian ISO layout, so the OS keyboard layout
  * must be set to Norwegian ("no"). See config/keys_nb.h for the NB_* defines.
@@ -67,20 +67,20 @@
          *  |/§  1  2  3  4  5  [6]        [5]  6  7  8  9  0  +/?
          *  Tab  Q  W  E  R  T  [Y]        [T]  Y  U  I  O  P  Å
          *  Esc  A  S  D  F  G  [H]        [G]  H  J  K  L  Ø  Æ
-         *  Shft Z  X  C  V  B                  N  M  ,  .  -  Shft
-         *  Ctrl ↓  ↑  ←  →                     Menu \  '  ¨  <
+         *  Shft Z  X  C  V  B                  N  M  ,  .  -  \
+         *  Ctrl Sup Alt ←  →                    ↑  ↓  '  ¨  <
          *
-         *  left thumb :  Space | Ctrl(big)  Alt(top)  |  AltGr  Home  End
-         *  right thumb:  Fn  AltGr | Super  Del | Enter | Bksp
+         *  left thumb   Space(big) | Alt above Ctrl(big) | inner col: AltGr, Fn, Super
+         *  right thumb  inner col: Home, End, Del | AltGr above Enter(big) | Bksp(big)
          */
         default_layer {
             display-name = "Base";
             bindings = <
                 &kp NB_PIPE       &kp N1            &kp N2            &kp N3            &kp N4            &kp N5               &kp N6               &kp N5               &kp N6            &kp N7            &kp N8            &kp N9            &kp N0            &kp NB_PLUS
                 &kp TAB           &kp Q             &kp W             &kp E             &kp R             &kp T                &kp Y                &kp T                &kp Y             &kp U             &kp I             &kp O             &kp P             &kp NB_A_RING
-                &kp ESC           &kp A             &kp S             &kp D             &kp F             &kp G                &kp H                &kp LALT          &kp RALT             &mo 2             &kp RALT             &kp G                &kp H             &kp J             &kp K             &kp L             &kp NB_O_SLASH    &kp NB_AE
-                &kp LSHFT         &kp Z             &kp X             &kp C             &kp V             &kp B                &kp HOME             &kp LGUI             &kp N             &kp M             &kp NB_COMMA      &kp NB_DOT        &kp NB_MINUS      &kp NB_BSLH
-                &kp LCTRL         &kp LGUI          &kp LALT          &kp LEFT          &kp RIGHT            &kp SPACE         &kp LCTRL         &kp END              &kp DEL           &kp RET           &kp BSPC             &kp UP            &kp DOWN          &kp NB_APOS       &kp NB_UMLAUT     &kp NB_LESS_THAN
+                &kp ESC           &kp A             &kp S             &kp D             &kp F             &kp G                &kp H                &kp LALT          &kp RALT             &kp HOME          &kp RALT             &kp G                &kp H             &kp J             &kp K             &kp L             &kp NB_O_SLASH    &kp NB_AE
+                &kp LSHFT         &kp Z             &kp X             &kp C             &kp V             &kp B                &mo 2                &kp END              &kp N             &kp M             &kp NB_COMMA      &kp NB_DOT        &kp NB_MINUS      &kp NB_BSLH
+                &kp LCTRL         &kp LGUI          &kp LALT          &kp LEFT          &kp RIGHT            &kp SPACE         &kp LCTRL         &kp LGUI             &kp DEL           &kp RET           &kp BSPC             &kp UP            &kp DOWN          &kp NB_APOS       &kp NB_UMLAUT     &kp NB_LESS_THAN
             >;
         };
 
@@ -98,7 +98,7 @@
             >;
         };
 
-        /* Hold the right-thumb inner top key.
+        /* Hold the left thumb's inner-column middle key.
          *   number row      -> F1..F10, F11 on '+', F12 on '|'
          *   Esc             -> Caps Lock
          *   ← → (left hand)  -> Home End
